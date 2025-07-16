@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="page.mode_selection.title">AetherFlow - Select Mode</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .mode-selection-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .mode-selection-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .mode-selection-header {
+            margin-bottom: 40px;
+        }
+        
+        .mode-selection-header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .mode-selection-header p {
+            color: #6c757d;
+            font-size: 1.2rem;
+        }
+        
+        .mode-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .mode-option {
+            background: #f8f9fa;
+            border: 3px solid #e9ecef;
+            border-radius: 15px;
+            padding: 40px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .mode-option:hover {
+            border-color: #667eea;
+            background: #f0f8ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .mode-option.selected {
+            border-color: #667eea;
+            background: #f0f8ff;
+        }
+        
+        .mode-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .mode-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .mode-description {
+            color: #6c757d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .mode-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mode-features li {
+            color: #28a745;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .mode-features li::before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .mode-selection-footer {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .btn-mode-select {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        .btn-mode-select:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-mode-select:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        @media (max-width: 768px) {
+            .mode-options {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .mode-selection-header h1 {
+                font-size: 2rem;
+            }
+            
+            .mode-option {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mode-selection-container">
+        <div class="mode-selection-card">
+            <div class="mode-selection-header">
+                <div class="logo-container" style="margin-bottom: 20px;">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" style="height: 60px;">
+                </div>
+                <h1 data-translate="mode.selection.title">Welcome to AetherFlow</h1>
+                <p data-translate="mode.selection.subtitle">Choose how you'd like to use the sickle cell crisis assessment tool</p>
+            </div>
+            
+            <div class="mode-options">
+                <!-- Single Patient Mode -->
+                <div class="mode-option" id="singlePatientMode" onclick="selectMode('single')">
+                    <span class="mode-icon">👤</span>
+                    <h3 class="mode-title" data-translate="mode.single.title">Single Patient Use</h3>
+                    <p class="mode-description" data-translate="mode.single.description">
+                        Monitor one patient's sickle cell condition with medical supervision or guidance.
+                    </p>
+                    <ul class="mode-features">
+                        <li data-translate="mode.single.feature1">Individual patient monitoring</li>
+                        <li data-translate="mode.single.feature2">Medical assessment tools</li>
+                        <li data-translate="mode.single.feature3">Patient health insights</li>
+                        <li data-translate="mode.single.feature4">24/7 AI medical assistant</li>
+                    </ul>
+                </div>
+                
+                <!-- Multi Patient Mode -->
+                <div class="mode-option" id="multiPatientMode" onclick="selectMode('multi')">
+                    <span class="mode-icon">👥</span>
+                    <h3 class="mode-title" data-translate="mode.multi.title">Healthcare Provider</h3>
+                    <p class="mode-description" data-translate="mode.multi.description">
+                        Manage multiple sickle cell patients and monitor their health status.
+                    </p>
+                    <ul class="mode-features">
+                        <li data-translate="mode.multi.feature1">Multiple patient profiles</li>
+                        <li data-translate="mode.multi.feature2">Patient management dashboard</li>
+                        <li data-translate="mode.multi.feature3">Comparative analysis</li>
+                        <li data-translate="mode.multi.feature4">Professional reporting</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mode-selection-footer">
+                <button class="btn-mode-select" id="continueBtn" onclick="continueWithSelectedMode()" disabled>
+                    <span data-translate="mode.selection.continue">Continue</span>
+                </button>
+                <button class="btn-mode-select" onclick="showModeInfo()" style="background: #6c757d;">
+                    <span data-translate="mode.selection.learn_more">Learn More</span>
+                </button>
+                <button class="btn-mode-select" onclick="resetModeSelection()" style="background: #dc3545;">
+                    <span>Reset Selection</span>
+                </button>
+            </div>
+            
+            <div style="margin-top: 30px; font-size: 0.9rem; color: #6c757d;">
+                <p data-translate="mode.selection.note">
+                    You can change this setting anytime in the application settings.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        let selectedMode = null;
+        
+        function selectMode(mode) {
+            selectedMode = mode;
+            
+            // Remove previous selection
+            document.querySelectorAll('.mode-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            if (mode === 'single') {
+                document.getElementById('singlePatientMode').classList.add('selected');
+            } else {
+                document.getElementById('multiPatientMode').classList.add('selected');
+            }
+            
+            // Enable continue button
+            document.getElementById('continueBtn').disabled = false;
+        }
+        
+        function continueWithSelectedMode() {
+            if (!selectedMode) return;
+            
+            // Store the selected mode
+            localStorage.setItem('aetherflow_mode', selectedMode);
+            
+            if (selectedMode === 'single') {
+                // Clear any existing patient data and go to normal index
+                localStorage.removeItem('aetherflow_current_patient');
+                localStorage.removeItem('aetherflow_patients');
+                // Check if index.html exists, otherwise show error
+                window.location.href = 'index.html';
+            } else {
+                // Go to healthcare setup
+                window.location.href = 'healthcare-setup.html';
+            }
+        }
+        
+        function showModeInfo() {
+            alert('Single Patient Mode is ideal for individuals monitoring their own condition.\n\nHealthcare Provider Mode is designed for medical professionals managing multiple patients.');
+        }
+        
+        function resetModeSelection() {
+            if (confirm('This will clear all saved data and reset the mode selection. Continue?')) {
+                localStorage.clear();
+                window.location.reload();
+            }
+        }
+        
+        // Check if mode is already selected
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add a URL parameter to force reset mode selection for testing
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('reset') === 'true') {
+                localStorage.removeItem('aetherflow_mode');
+                localStorage.removeItem('aetherflow_provider');
+                localStorage.removeItem('aetherflow_patients');
+                localStorage.removeItem('aetherflow_assessments');
+                console.log('Mode selection reset for testing');
+                // Remove the reset parameter from URL to prevent infinite clearing
+                window.history.replaceState({}, document.title, window.location.pathname);
+                return;
+            }
+            
+            // Only auto-redirect if the user came from outside the app (like app startup)
+            // Don't auto-redirect if they explicitly navigated to mode-selection.html
+            const savedMode = localStorage.getItem('aetherflow_mode');
+            const referrer = document.referrer;
+            const forceSelection = urlParams.get('force') === 'true';
+            
+            // Don't auto-redirect if:
+            // 1. force=true parameter is present, OR
+            // 2. User came from within the app (has a referrer from the same domain), OR  
+            // 3. User manually navigated to this page, OR
+            // 4. Page was opened directly (for testing)
+            const isDirectAccess = !referrer || referrer === '' || referrer.includes(window.location.hostname);
+            
+            if (forceSelection || isDirectAccess) {
+                console.log('Staying on mode selection page - user intentionally navigated here or testing');
+                return;
+            }
+            
+            // Only auto-redirect if there's a saved mode AND user came from outside the app
+            if (savedMode && !isDirectAccess) {
+                console.log('Found saved mode:', savedMode);
+                // Add a small delay to allow user to see the page briefly
+                setTimeout(() => {
+                    if (savedMode === 'single') {
+                        console.log('Redirecting to index.html');
+                        window.location.href = 'index.html';
+                    } else {
+                        console.log('Redirecting to healthcare-dashboard.html');
+                        window.location.href = 'healthcare-dashboard.html';
+                    }
+                }, 1500); // 1.5 second delay
+            }
+            
+            console.log('Mode selection page loaded');
+        });
+    </script>
+</body>
+</html>

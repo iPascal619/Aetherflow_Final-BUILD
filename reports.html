@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFl            </div>
+        </div>
+    </div>
+
+    <!-- Assessment Details Modal -->
+    <div id="assessmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Assessment Details</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="assessmentDetails">
+                    <!-- Assessment details will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/reports.js"></script>
+</body>
+</html>ports</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="healthcare-mode">
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <ul class="healthcare-nav-links">
+                    <li><a href="healthcare-dashboard.html">Dashboard</a></li>
+                    <li><a href="patients.html">Patients</a></li>
+                    <li><a href="assessments.html">Assessments</a></li>
+                    <li><a href="reports.html" class="active">Reports</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+                <div class="provider-info">
+                    <div class="provider-details">
+                        <span class="provider-name">Dr. Sarah Johnson</span>
+                        <span class="provider-role">Hematology Specialist</span>
+                    </div>
+                    <button class="logout-btn">Logout</button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Reports & Analytics</h1>
+                <p class="page-description">Generate and view comprehensive reports on sickle cell crisis assessments and patient outcomes</p>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Report Filters</h2>
+                </div>
+                <div class="filter-grid">
+                    <div class="input-group">
+                        <label for="dateRange">Date Range:</label>
+                        <select id="dateRange" class="form-select">
+                            <option value="7days">Last 7 Days</option>
+                            <option value="30days">Last 30 Days</option>
+                            <option value="90days">Last 90 Days</option>
+                            <option value="6months">Last 6 Months</option>
+                            <option value="1year">Last Year</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="patientFilter">Patients:</label>
+                        <select id="patientFilter" class="form-select">
+                            <option value="all">All Patients</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="assessmentType">Assessment Type:</label>
+                        <select id="assessmentType" class="form-select">
+                            <option value="all">All Types</option>
+                            <option value="crisis">Sickle Cell Crisis Assessment</option>
+                            <option value="symptom">Symptom Check</option>
+                        </select>
+                    </div>
+                    <div class="button-group">
+                        <button id="generateReport" class="btn btn-primary">Generate Report</button>
+                        <button id="exportReport" class="btn btn-secondary">Export PDF</button>
+                    </div>
+                </div>
+                <div id="customDateRange" class="custom-date-range" style="display: none;">
+                    <div class="input-group">
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" id="startDate" class="form-input">
+                    </div>
+                    <div class="input-group">
+                        <label for="endDate">End Date:</label>
+                        <input type="date" id="endDate" class="form-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Overview</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Assessments</h3>
+                        <div class="stat-value" id="totalAssessments">Loading...</div>
+                        <div class="stat-change" id="assessmentChange">Calculating...</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Patients</h3>
+                        <div class="stat-value" id="activePatients">Loading...</div>
+                        <div class="stat-change" id="patientChange">Calculating...</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Crisis Score</h3>
+                        <div class="stat-value" id="averageScore">Loading...</div>
+                        <div class="stat-change" id="scoreChange">Calculating...</div>
+                    </div>
+                    <div class="stat-card high-risk">
+                        <h3>High Risk Patients</h3>
+                        <div class="stat-value" id="highRiskCount">Loading...</div>
+                        <div class="stat-change" id="riskChange">Calculating...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Charts & Analytics</h2>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>Crisis Assessment Trends Over Time</h3>
+                        <canvas id="trendsChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Crisis Score Distribution</h3>
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>Genotype Distribution</h3>
+                        <canvas id="genotypeChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>Risk Level Overview</h3>
+                        <canvas id="riskChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Detailed Report Data</h2>
+                </div>
+                <div class="table-container">
+                    <table id="reportTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Genotype</th>
+                                <th>Assessment Date</th>
+                                <th>Crisis Score</th>
+                                <th>Risk Level</th>
+                                <th>Recommendations</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportTableBody">
+                            <tr>
+                                <td colspan="7" class="no-data">No data available for the selected filters</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/reports.js"></script>
+</body>
+</html>

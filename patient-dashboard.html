@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFlow - Patient Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="healthcare-mode">
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <ul class="healthcare-nav-links">
+                    <li><a href="healthcare-dashboard.html">Dashboard</a></li>
+                    <li><a href="patients.html">Patients</a></li>
+                    <li><a href="assessments.html">Assessments</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+                <div class="provider-info">
+                    <div class="provider-details">
+                        <span class="provider-name">Dr. Sarah Johnson</span>
+                        <span class="provider-role">Licensed Clinical Psychologist</span>
+                    </div>
+                    <button class="logout-btn">Logout</button>
+                </div>
+            </nav>
+        </header>
+
+    <main class="main-content">
+        <div class="content-header">
+            <div class="header-left">
+                <button id="backToPatients" class="btn btn-secondary">← Back to Patients</button>
+                <div class="patient-title">
+                    <h2 id="patientName">Loading Patient...</h2>
+                    <p id="patientInfo">Patient ID: <span id="patientId">-</span> | DOB: <span id="patientDob">-</span></p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="newAssessment" class="btn btn-primary">New Assessment</button>
+                <button id="editPatient" class="btn btn-outline">Edit Patient</button>
+            </div>
+        </div>
+
+        <div class="patient-dashboard-content">
+            <!-- Patient Overview Cards -->
+            <div class="overview-cards">
+                <div class="overview-card">
+                    <h4>Last Assessment</h4>
+                    <div class="metric-value" id="lastAssessmentDate">No assessments</div>
+                    <div class="metric-subtitle" id="lastAssessmentType">-</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Latest Score</h4>
+                    <div class="metric-value" id="latestScore">-</div>
+                    <div class="metric-subtitle" id="latestSeverity">-</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Total Assessments</h4>
+                    <div class="metric-value" id="totalAssessments">0</div>
+                    <div class="metric-subtitle">All time</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Trend</h4>
+                    <div class="metric-value" id="trendIndicator">-</div>
+                    <div class="metric-subtitle">30-day change</div>
+                </div>
+            </div>
+
+            <!-- Patient Details Section -->
+            <div class="patient-details-section">
+                <div class="patient-info-card">
+                    <h3>Patient Information</h3>
+                    <div class="patient-details-grid">
+                        <div class="detail-item">
+                            <label>Full Name:</label>
+                            <span id="fullName">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Date of Birth:</label>
+                            <span id="dateOfBirth">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Gender:</label>
+                            <span id="gender">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Genotype:</label>
+                            <span id="genotype">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Email:</label>
+                            <span id="email">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Phone:</label>
+                            <span id="phone">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Emergency Contact:</label>
+                            <span id="emergencyContact">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Primary Concerns:</label>
+                            <span id="primaryConcerns">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Notes:</label>
+                            <span id="notes">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-chart-card">
+                    <h3>Progress Overview</h3>
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assessment History -->
+            <div class="assessment-history-section">
+                <div class="section-header">
+                    <h3>Assessment History</h3>
+                    <div class="history-filters">
+                        <select id="timeRangeFilter">
+                            <option value="all">All Time</option>
+                            <option value="30days">Last 30 Days</option>
+                            <option value="90days">Last 90 Days</option>
+                            <option value="6months">Last 6 Months</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="assessments-table-container">
+                    <table id="assessmentsTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Assessment Type</th>
+                                <th>Score</th>
+                                <th>Severity</th>
+                                <th>Change</th>
+                                <th>Notes</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assessmentsTableBody">
+                            <tr>
+                                <td colspan="7" class="no-data">No assessments found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Risk Assessment -->
+            <div class="risk-assessment-section">
+                <div class="risk-card">
+                    <h3>Risk Assessment</h3>
+                    <div class="risk-level" id="riskLevel">
+                        <div class="risk-indicator low">Low Risk</div>
+                        <div class="risk-description">Based on recent assessment scores and trends</div>
+                    </div>
+                    <div class="risk-factors">
+                        <h4>Risk Factors to Monitor:</h4>
+                        <ul id="riskFactorsList">
+                            <li>No significant risk factors identified</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="recommendations-card">
+                    <h3>Treatment Recommendations</h3>
+                    <div class="recommendations-list" id="recommendationsList">
+                        <div class="recommendation-item">
+                            <strong>Continue current treatment plan</strong>
+                            <p>Patient shows stable progression with current interventions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Assessment Details Modal -->
+    <div id="assessmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Assessment Details</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="assessmentModalBody">
+                <!-- Assessment details will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="closeModal">Close</button>
+                <button class="btn btn-primary" id="editAssessment">Edit Assessment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Assessment Modal -->
+    <div id="newAssessmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Sickle Cell Crisis Assessment</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="newAssessmentForm">
+                    <div class="form-group">
+                        <p><strong>Assessment Type:</strong> Sickle Cell Crisis Assessment</p>
+                        <p>This assessment will evaluate the current crisis level and symptoms.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="assessmentNotes">Notes (Optional):</label>
+                        <textarea id="assessmentNotes" rows="3" placeholder="Any additional notes about this assessment..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelNewAssessment">Cancel</button>
+                <button class="btn btn-primary" id="startAssessment">Start Assessment</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/patient-dashboard-fixed.js"></script>
+</body>
+</html>

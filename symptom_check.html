@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFlow - Symptom Check</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">
+                        <img src="images/icon-home.svg" alt="Home"> <span data-translate="nav.home">Home</span>
+                    </a></li>
+                    <li><a href="dashboard.html" class="nav-link">
+                        <img src="images/icon-dashboard.svg" alt="Dashboard"> <span data-translate="nav.dashboard">Dashboard</span>
+                    </a></li>
+                    <li><a href="symptom_check.html" class="nav-link active">
+                        <img src="images/icon-predict.svg" alt="Predict"> <span data-translate="nav.symptom_check">Crisis Assessment</span>
+                    </a></li>
+                    <li><a href="settings.html" class="nav-link">
+                        <img src="images/icon-settings.svg" alt="Settings"> <span data-translate="nav.settings">Settings</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="symptom-check">
+                <div class="check-header">
+                    <h1 data-translate="title">Sickle Cell Crisis Risk Assessment</h1>
+                    <p data-translate="subtitle">A comprehensive tool to assess your symptoms and sickle cell crisis risk</p>
+                </div>
+
+                <form id="symptomForm" class="symptom-form">
+                    <!-- Patient Demographics -->
+                    <div class="form-section">
+                        <h3 data-translate="demographics">Patient Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="age" data-translate="age">Age</label>
+                                <input type="number" id="age" name="age" min="0" max="120" required class="input">
+                            </div>
+                            <div class="form-group">
+                                <label for="sex" data-translate="sex">Sex</label>
+                                <select id="sex" name="sex" required class="select">
+                                    <option value="">Select...</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="genotype" data-translate="genotype">Sickle Cell Genotype</label>
+                            <select id="genotype" name="genotype" required class="select">
+                                <option value="">Select genotype...</option>
+                                <option value="HbSS">HbSS (Sickle Cell Anemia)</option>
+                                <option value="HbSC">HbSC (Sickle-Hemoglobin C Disease)</option>
+                                <option value="HbS-beta">HbS-beta (Sickle Beta Thalassemia)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Current Symptoms -->
+                    <div class="form-section">
+                        <h3 data-translate="section_title">Current Symptoms</h3>
+                        <div class="form-group">
+                            <label for="painLevel" data-translate="pain_level_label">Current pain level (0-10 scale)</label>
+                            <div class="slider-container">
+                                <input type="range" id="painLevel" name="painLevel" class="slider" min="0" max="10" value="0">
+                                <div class="slider-value" id="painValue">0</div>
+                                <div class="slider-labels">
+                                    <span data-translate="no_pain">No Pain</span>
+                                    <span data-translate="moderate_pain">Moderate</span>
+                                    <span data-translate="severe_pain">Severe</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-translate="joint_pain_question">Is there any joint pain or stiffness?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="jointPainYes" name="jointPain" value="1">
+                                    <label for="jointPainYes" data-translate="yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="jointPainNo" name="jointPain" value="0" checked>
+                                    <label for="jointPainNo" data-translate="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-translate="fatigue_question">Is there unusual tiredness or fatigue?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="fatigueYes" name="fatigue" value="1">
+                                    <label for="fatigueYes" data-translate="yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="fatigueNo" name="fatigue" value="0" checked>
+                                    <label for="fatigueNo" data-translate="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-translate="fever_question">Is there a fever or feeling feverish?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="feverYes" name="fever" value="1">
+                                    <label for="feverYes" data-translate="yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="feverNo" name="fever" value="0" checked>
+                                    <label for="feverNo" data-translate="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-translate="shortness_breath">Do you have shortness of breath?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="breathYes" name="shortness_of_breath" value="1">
+                                    <label for="breathYes" data-translate="yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="breathNo" name="shortness_of_breath" value="0" checked>
+                                    <label for="breathNo" data-translate="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-translate="dactylitis">Do you have swelling in fingers or toes (dactylitis)?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="dactylitisYes" name="dactylitis" value="1">
+                                    <label for="dactylitisYes" data-translate="yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="dactylitisNo" name="dactylitis" value="0" checked>
+                                    <label for="dactylitisNo" data-translate="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hydrationLevel" data-translate="hydration_question">What is the current hydration level?</label>
+                            <select id="hydrationLevel" name="hydrationLevel" class="select" required>
+                                <option value="" data-translate="please_select">Please select...</option>
+                                <option value="Low" data-translate="hydration_low">Low - Not drinking enough fluids</option>
+                                <option value="Medium" data-translate="hydration_normal">Normal - Drinking regularly</option>
+                                <option value="High" data-translate="hydration_high">High - Drinking plenty of fluids</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Patient Selection for Healthcare Providers -->
+                    <div id="patientSelectionSection" class="form-section" style="display: none;">
+                        <h3 data-translate="patient_selection">Patient Selection</h3>
+                        <div class="patient-selection-container">
+                            <div class="selected-patient-info" id="selectedPatientInfo" style="display: none;">
+                                <div class="patient-avatar">
+                                    <span id="patientInitials"></span>
+                                </div>
+                                <div class="patient-details">
+                                    <h4 id="patientName"></h4>
+                                    <p><strong>ID:</strong> <span id="patientId"></span></p>
+                                    <p><strong>Age:</strong> <span id="patientAge"></span> | <strong>Gender:</strong> <span id="patientGender"></span></p>
+                                    <p><strong>Last Assessment:</strong> <span id="lastAssessment"></span></p>
+                                </div>
+                                <button type="button" class="btn btn-outline" onclick="changePatient()">
+                                    Change Patient
+                                </button>
+                            </div>
+                            <div class="patient-selector" id="patientSelector">
+                                <label for="patientSelect">Select Patient for Assessment:</label>
+                                <select id="patientSelect" class="select" onchange="selectPatientForAssessment()">
+                                    <option value="">Choose a patient...</option>
+                                </select>
+                                <p class="help-text">Select the patient you want to assess from your patient list.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medical History & Lab Values -->
+                    <div class="form-section">
+                        <h3 data-translate="medical_history">Medical History & Lab Values</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hbfPercent" data-translate="hbf_percent">Fetal Hemoglobin (HbF) %</label>
+                                <input type="number" id="hbfPercent" name="hbf_percent" min="0" max="100" step="0.1" value="5.0" class="input">
+                                <small>If unknown, leave as default (5.0%)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="wbcCount" data-translate="wbc_count">White Blood Cell Count (x10⁹/L)</label>
+                                <input type="number" id="wbcCount" name="wbc_count" min="0" step="0.1" value="8.5" class="input">
+                                <small>Normal range: 4.0-11.0</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ldh" data-translate="ldh">LDH Level (U/L)</label>
+                                <input type="number" id="ldh" name="ldh" min="0" value="250" class="input">
+                                <small>Normal range: 140-280</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="crp" data-translate="crp">C-Reactive Protein (mg/L)</label>
+                                <input type="number" id="crp" name="crp" min="0" step="0.1" value="3.0" class="input">
+                                <small>Normal: <3.0 mg/L</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="priorCrises" data-translate="prior_crises_question">How many sickle cell crises occurred in the past year?</label>
+                            <select id="priorCrises" name="priorCrises" class="select" required>
+                                <option value="" data-translate="please_select">Please select...</option>
+                                <option value="0" data-translate="crises_0">0 - No previous crises</option>
+                                <option value="1" data-translate="crises_1">1 crisis</option>
+                                <option value="2" data-translate="crises_2">2 crises</option>
+                                <option value="3" data-translate="crises_3">3 crises</option>
+                                <option value="4">4 crises</option>
+                                <option value="5">5 or more crises</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-translate="history_acs">History of Acute Chest Syndrome?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="acsYes" name="history_of_acs" value="1">
+                                    <label for="acsYes" data-translate="yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="acsNo" name="history_of_acs" value="0" checked>
+                                    <label for="acsNo" data-translate="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-translate="coexisting_asthma">Do you have asthma?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="asthmaYes" name="coexisting_asthma" value="1">
+                                    <label for="asthmaYes" data-translate="yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="asthmaNo" name="coexisting_asthma" value="0" checked>
+                                    <label for="asthmaNo" data-translate="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medications & Lifestyle -->
+                    <div class="form-section">
+                        <h3 data-translate="medications_lifestyle">Medications & Lifestyle</h3>
+                        <div class="form-group">
+                            <label data-translate="hydroxyurea">Are you taking Hydroxyurea?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="huYes" name="hydroxyurea" value="1">
+                                    <label for="huYes" data-translate="yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="huNo" name="hydroxyurea" value="0" checked>
+                                    <label for="huNo" data-translate="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-translate="pain_medication">Are you currently taking pain medication?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="painMedYes" name="pain_med" value="1">
+                                    <label for="painMedYes" data-translate="yes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="painMedNo" name="pain_med" value="0" checked>
+                                    <label for="painMedNo" data-translate="no">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="medicationAdherence" data-translate="medication_adherence">Medication Adherence (0-1 scale)</label>
+                                <input type="number" id="medicationAdherence" name="medication_adherence" min="0" max="1" step="0.1" value="0.8" class="input">
+                                <small>1.0 = Perfect adherence, 0.0 = No adherence</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="sleepQuality" data-translate="sleep_quality">Sleep Quality (1-6 scale)</label>
+                                <input type="number" id="sleepQuality" name="sleep_quality" min="1" max="6" value="4" class="input">
+                                <small>1 = Very poor, 6 = Excellent</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stressLevel" data-translate="stress_level">Current Stress Level (0-10)</label>
+                            <div class="slider-container">
+                                <input type="range" id="stressLevel" name="reported_stress_level" class="slider" min="0" max="10" value="5">
+                                <div class="slider-value" id="stressValue">5</div>
+                                <div class="slider-labels">
+                                    <span>No Stress</span>
+                                    <span>Moderate</span>
+                                    <span>High Stress</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="temperature" data-translate="temperature">Current Temperature (°C)</label>
+                                <input type="number" id="temperature" name="temperature" step="0.1" value="25" class="input">
+                                <small>Environmental temperature</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="humidity" data-translate="humidity">Humidity (%)</label>
+                                <input type="number" id="humidity" name="humidity" min="0" max="100" value="50" class="input">
+                                <small>Environmental humidity</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" data-translate="begin_assessment">Begin Assessment</button>
+                        <button type="reset" class="btn btn-secondary" data-translate="clear_form">Clear Form</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p data-translate="footer.copyright">&copy; 2025 AetherFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/ai-integration.js"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="page.results.title">AetherFlow - Analysis Results</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">
+                        <img src="images/icon-home.svg" alt="Home"> <span data-translate="nav.home">Home</span>
+                    </a></li>
+                    <li><a href="dashboard.html" class="nav-link">
+                        <img src="images/icon-dashboard.svg" alt="Dashboard"> <span data-translate="nav.dashboard">Dashboard</span>
+                    </a></li>
+                    <li><a href="symptom_check.html" class="nav-link">
+                        <img src="images/icon-predict.svg" alt="Predict"> <span data-translate="nav.symptom_check">Crisis Assessment</span>
+                    </a></li>
+                    <li><a href="settings.html" class="nav-link">
+                        <img src="images/icon-settings.svg" alt="Settings"> <span data-translate="nav.settings">Settings</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="results-container">
+                <div class="results-header">
+                    <h1 data-translate="results.header">Analysis Results</h1>
+                    <p class="analysis-date"><span data-translate="results.completed_on">Analysis completed on</span> <span id="analysisDate"></span></p>
+                </div>
+
+                <div class="results-content">
+                    <!-- Sickle Cell Crisis Risk Assessment Results -->
+                    <div class="result-card sickle-cell-results">
+                        <h2 data-translate="results.sickle_cell_title">Sickle Cell Crisis Risk Assessment</h2>
+                        <div class="crisis-timeframe">
+                            <h3>48-Hour Crisis Prediction</h3>
+                            <p>Likelihood of sickle cell crisis occurring within the next 48 hours</p>
+                        </div>
+                        <div class="risk-display">
+                            <div class="risk-badge" id="riskBadge">
+                                <span id="riskLevel" data-translate="results.moderate_risk">Moderate Risk</span>
+                            </div>
+                            
+                            <div class="score-container">
+                                <div class="score-circle">
+                                    <svg class="progress-ring" width="120" height="120">
+                                        <circle class="progress-ring-background" cx="60" cy="60" r="54"></circle>
+                                        <circle class="progress-ring-progress" cx="60" cy="60" r="54" id="progressRing"></circle>
+                                    </svg>
+                                    <div class="score-text" id="scoreText">0.0</div>
+                                </div>
+                                <p class="score-label" data-translate="results.crisis_probability">Crisis Probability</p>
+                            </div>
+                            
+                            <div class="model-confidence">
+                                <span data-translate="results.confidence_level">AI Model Confidence: </span>
+                                <span id="confidenceLevel">High</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <h2 data-translate="results.recommendations">Medical Recommendations</h2>
+                        <p class="recommendations-intro" data-translate="results.recommendations_intro">
+                            Based on your assessment results, here are evidence-based recommendations tailored to your risk level and symptoms.
+                        </p>
+                        <div class="recommendations-list" id="recommendationsList">
+                            <div class="recommendation-item">
+                                <div class="rec-icon">💡</div>
+                                <div class="rec-content">
+                                    <h4 data-translate="results.loading_recommendations">Loading recommendations...</h4>
+                                    <p data-translate="results.wait_recommendations">Please wait while we generate personalized recommendations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-card">
+                        <h2 data-translate="results.medical_care">When to Seek Medical Care</h2>
+                        <div class="urgency-level" id="urgencyLevel">
+                            <div class="urgency-indicator"></div>
+                            <div class="urgency-text">
+                                <h3 data-translate="results.assessment_progress">Assessment in progress...</h3>
+                                <p data-translate="results.evaluating_urgency">Evaluating the urgency of your symptoms.</p>
+                            </div>
+                        </div>
+                        <div class="warning-signs" id="warningSignsContainer" style="display: none;">
+                            <h4 data-translate="results.seek_immediate">Seek immediate medical attention if you experience:</h4>
+                            <ul id="warningSigns"></ul>
+                        </div>
+                    </div>
+
+                    <div class="result-card" id="relatedConditionsCard" style="display: none;">
+                        <h2 data-translate="results.other_concerns">Other Medical Considerations</h2>
+                        <div class="related-conditions" id="relatedConditions">
+                            <p data-translate="results.analyzing_concerns">Analyzing other potential concerns...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn btn-primary" onclick="saveResults()" data-translate="results.save_results">Save Results</button>
+                    <button class="btn btn-secondary" onclick="printResults()" data-translate="results.print_results">Print Results</button>
+                    <a href="symptom_check.html" class="btn btn-outline" data-translate="results.new_analysis">New Analysis</a>
+                    <a href="dashboard.html" class="btn btn-outline" data-translate="results.view_dashboard">View Dashboard</a>
+                </div>
+
+                <div class="disclaimer">
+                    <h4 data-translate="results.disclaimer_title">⚠️ Important Disclaimer</h4>
+                    <p data-translate="results.disclaimer_text">This analysis is for informational purposes only and should not replace professional medical advice. 
+                    Always consult with a healthcare provider for proper diagnosis and treatment.</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- 24/7 Health Companion Chat - Available on Results Page -->
+        <div class="health-companion" id="healthCompanion">
+            <div class="companion-toggle" id="companionToggle">
+                <div class="companion-avatar">
+                    <span class="companion-icon">🩺</span>
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="companion-status">
+                    <span data-translate="companion.online">Online</span>
+                </div>
+            </div>
+            
+            <div class="companion-chat hidden" id="companionChat">
+                <div class="chat-header">
+                    <div class="chat-avatar">
+                        <span>🩺</span>
+                    </div>
+                    <div class="chat-info">
+                        <h4 data-translate="companion.name">AetherFlow Assistant</h4>
+                        <span class="status-indicator" data-translate="companion.status">Always here to help</span>
+                    </div>
+                    <button class="chat-close" id="chatClose">×</button>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant-message">
+                        <div class="message-avatar">🩺</div>
+                        <div class="message-content">
+                            <p data-translate="companion.welcome.results">I see you've completed your crisis risk assessment. I'm here to help answer any questions about your results or provide additional guidance.</p>
+                            <div class="quick-actions">
+                                <button class="quick-action" data-action="explain-results" data-translate="companion.action.explain_results">Explain Results</button>
+                                <button class="quick-action" data-action="next-steps" data-translate="companion.action.next_steps">Next Steps</button>
+                                <button class="quick-action" data-action="emergency" data-translate="companion.action.emergency">Emergency Help</button>
+                            </div>
+                            <span class="message-time"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="typing-indicator hidden" id="typingIndicator">
+                    <div class="typing-avatar">🩺</div>
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <input type="text" class="chat-input" id="chatInput" 
+                               data-translate-placeholder="companion.input.placeholder" 
+                               placeholder="Ask about your results or get health advice...">
+                        <button class="voice-input" id="voiceInput" title="Voice input">🎤</button>
+                        <button class="send-message" id="sendMessage">📤</button>
+                    </div>
+                    <div class="chat-suggestions" id="chatSuggestions">
+                        <button class="suggestion" data-translate="companion.suggestion.results">What do my results mean?</button>
+                        <button class="suggestion" data-translate="companion.suggestion.prevention">How to prevent crisis?</button>
+                        <button class="suggestion" data-translate="companion.suggestion.doctor">Should I see a doctor?</button>
+                        <button class="suggestion" data-translate="companion.suggestion.emergency">Emergency</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p data-translate="footer.copyright">&copy; 2025 AetherFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/ai-integration.js"></script>
+    <script src="js/results-display.js"></script>
+</body>
+</html>

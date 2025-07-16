@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFlow - Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link active">
+                        <img src="images/icon-home.svg" alt="Home"> <span data-translate="nav.home">Home</span>
+                    </a></li>
+                    <li><a href="dashboard.html" class="nav-link">
+                        <img src="images/icon-dashboard.svg" alt="Dashboard"> <span data-translate="nav.dashboard">Dashboard</span>
+                    </a></li>
+                    <li><a href="symptom_check.html" class="nav-link">
+                        <img src="images/icon-predict.svg" alt="Predict"> <span data-translate="nav.symptom_check">Crisis Assessment</span>
+                    </a></li>
+                    <li><a href="settings.html" class="nav-link">
+                        <img src="images/icon-settings.svg" alt="Settings"> <span data-translate="nav.settings">Settings</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 data-translate="home.welcome">Welcome to AetherFlow</h1>
+                    <p class="hero-subtitle" data-translate="home.subtitle">Your intelligent health companion for symptom analysis and wellness tracking</p>
+                    <div class="hero-actions">
+                        <a href="symptom_check.html" class="btn btn-primary" data-translate="home.start_assessment">Start crisis assessment</a>
+                        <a href="dashboard.html" class="btn btn-secondary" data-translate="home.view_dashboard">View Dashboard</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/aetherflow-bg.svg" alt="AetherFlow Background">
+                </div>
+            </section>
+
+            <section class="features">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <img src="images/icon-predict.svg" alt="Symptom Analysis">
+                        <h3 data-translate="home.symptom_analysis">Symptom Analysis</h3>
+                        <p data-translate="home.symptom_analysis_desc">Get intelligent insights about your symptoms using advanced AI technology</p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="images/icon-dashboard.svg" alt="Health Dashboard">
+                        <h3 data-translate="home.health_dashboard">Health Dashboard</h3>
+                        <p data-translate="home.health_dashboard_desc">Track your health metrics and view comprehensive reports</p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="images/icon-settings.svg" alt="Personalized Settings">
+                        <h3 data-translate="home.personalized_care">Personalized Care</h3>
+                        <p data-translate="home.personalized_care_desc">Customize your experience with personalized health recommendations</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p data-translate="footer.copyright">&copy; 2025 AetherFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- 24/7 Health Companion Chat -->
+    <div class="health-companion" id="healthCompanion">
+        <div class="companion-toggle" id="companionToggle">
+            <div class="companion-avatar">
+                <span class="companion-icon">🩺</span>
+                <div class="pulse-ring"></div>
+            </div>
+            <div class="companion-status">
+                <span data-translate="companion.online">Online</span>
+            </div>
+        </div>
+        
+        <div class="companion-chat hidden" id="companionChat">
+            <div class="chat-header">
+                <div class="chat-avatar">
+                    <span>🩺</span>
+                </div>
+                <div class="chat-info">
+                    <h4 data-translate="companion.name">AetherFlow Assistant</h4>
+                    <span class="status-indicator" data-translate="companion.status">Always here to help</span>
+                </div>
+                <button class="chat-close" id="chatClose">×</button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant-message">
+                    <div class="message-avatar">🩺</div>
+                    <div class="message-content">
+                        <p data-translate="companion.welcome">Hi! I'm your 24/7 health companion. How can I help you today?</p>
+                        <div class="quick-actions">
+                            <button class="quick-action" data-action="symptoms" data-translate="companion.action.symptoms">Report Symptoms</button>
+                            <button class="quick-action" data-action="emergency" data-translate="companion.action.emergency">Emergency Help</button>
+                            <button class="quick-action" data-action="advice" data-translate="companion.action.advice">Health Advice</button>
+                        </div>
+                        <span class="message-time"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="typing-indicator hidden" id="typingIndicator">
+                <div class="typing-avatar">🩺</div>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <input type="text" class="chat-input" id="chatInput" 
+                           data-translate-placeholder="companion.input.placeholder" 
+                           placeholder="Type your health question...">
+                    <button class="voice-input" id="voiceInput" title="Voice input">🎤</button>
+                    <button class="send-message" id="sendMessage">📤</button>
+                </div>
+                <div class="chat-suggestions" id="chatSuggestions">
+                    <button class="suggestion" data-translate="companion.suggestion.pain">I have pain</button>
+                    <button class="suggestion" data-translate="companion.suggestion.fever">I have fever</button>
+                    <button class="suggestion" data-translate="companion.suggestion.tired">I feel tired</button>
+                    <button class="suggestion" data-translate="companion.suggestion.emergency">Emergency</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

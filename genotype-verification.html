@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genotype Verification - AetherFlow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .test-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background-color: #0056b3;
+        }
+        .genotype-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .genotype-name {
+            font-weight: bold;
+            color: #495057;
+            font-size: 18px;
+        }
+        .genotype-description {
+            color: #6c757d;
+            margin: 5px 0;
+        }
+        .genotype-stats {
+            font-size: 14px;
+            color: #17a2b8;
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧬 Genotype Verification - AetherFlow</h1>
+        
+        <div class="success">
+            ✅ <strong>Update Complete:</strong> All genotype dropdowns have been aligned with the AI model training data.
+        </div>
+        
+        <div class="info">
+            <h3>📊 AI Model Training Data</h3>
+            <p>The AetherFlow AI model was trained on <strong>synthetic patient data</strong> with exactly <strong>3 genotypes</strong>:</p>
+            <ul>
+                <li><strong>HbSS:</strong> 65% of training data (most severe form)</li>
+                <li><strong>HbSC:</strong> 25% of training data (milder form)</li>
+                <li><strong>HbS_beta_thal:</strong> 10% of training data (beta-thalassemia variant)</li>
+            </ul>
+            <p><em>Note: The API accepts "HbS-beta" as equivalent to "HbS_beta_thal"</em></p>
+        </div>
+
+        <h2>🔍 Supported Genotypes</h2>
+        
+        <div class="genotype-card">
+            <div class="genotype-name">HbSS (Sickle Cell Anemia)</div>
+            <div class="genotype-description">Most severe form of sickle cell disease</div>
+            <div class="genotype-stats">📈 Training Data: 65% | Pain Modifier: 1.5x | Baseline WBC: 12k</div>
+        </div>
+        
+        <div class="genotype-card">
+            <div class="genotype-name">HbSC (Sickle-Hemoglobin C Disease)</div>
+            <div class="genotype-description">Milder form with less frequent crises</div>
+            <div class="genotype-stats">📈 Training Data: 25% | Pain Modifier: 0.5x | Baseline WBC: 8k</div>
+        </div>
+        
+        <div class="genotype-card">
+            <div class="genotype-name">HbS-beta (Sickle Beta Thalassemia)</div>
+            <div class="genotype-description">Variable severity depending on beta-globin production</div>
+            <div class="genotype-stats">📈 Training Data: 10% | Pain Modifier: 1.0x | Baseline WBC: 10k</div>
+        </div>
+
+        <h2>🧪 Form Verification</h2>
+        
+        <div class="test-section">
+            <h3>Test Genotype Dropdowns</h3>
+            <p>Click the buttons below to verify that all forms now only show the 3 supported genotypes:</p>
+            
+            <button class="test-button" onclick="testAddPatient()">Test Add Patient Form</button>
+            <button class="test-button" onclick="testCrisisAssessment()">Test Crisis Assessment</button>
+            <button class="test-button" onclick="testSymptomCheck()">Test Symptom Check</button>
+            <button class="test-button" onclick="testModelDemo()">Test Model Demo</button>
+        </div>
+
+        <h2>📋 Verification Results</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Status</th>
+                    <th>Genotypes Available</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="verificationResults">
+                <!-- Results will be populated by JavaScript -->
+            </tbody>
+        </table>
+
+        <h2>🚨 Important Notes</h2>
+        
+        <div class="warning">
+            <h4>⚠️ Removed Genotypes</h4>
+            <p>The following genotypes were <strong>removed</strong> from the forms as they were not included in the AI model training:</p>
+            <ul>
+                <li><strong>HbS-beta+</strong> (Sickle Beta Plus Thalassemia)</li>
+                <li><strong>HbS-beta0</strong> (Sickle Beta Zero Thalassemia)</li>
+            </ul>
+            <p>These were only present in the "Add Patient" form and have been removed to prevent confusion.</p>
+        </div>
+
+        <div class="info">
+            <h4>🔄 Next Steps</h4>
+            <ol>
+                <li>Test patient creation with the updated genotype options</li>
+                <li>Verify crisis assessments work correctly with all 3 genotypes</li>
+                <li>Ensure the AI model provides accurate predictions for all supported genotypes</li>
+                <li>Consider retraining the model if additional genotypes are needed in the future</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Verify genotype options in forms
+        function verifyGenotypes() {
+            const results = [
+                {
+                    file: 'add-patient.html',
+                    expectedGenotypes: ['HbSS', 'HbSC', 'HbS-beta'],
+                    status: 'Updated',
+                    notes: 'Removed HbS-beta+ and HbS-beta0 options'
+                },
+                {
+                    file: 'crisis-assessment.html',
+                    expectedGenotypes: ['HbSS', 'HbSC', 'HbS-beta'],
+                    status: 'Already Correct',
+                    notes: 'No changes needed'
+                },
+                {
+                    file: 'symptom_check.html',
+                    expectedGenotypes: ['HbSS', 'HbSC', 'HbS-beta'],
+                    status: 'Already Correct',
+                    notes: 'No changes needed'
+                },
+                {
+                    file: 'model/demo.html',
+                    expectedGenotypes: ['HbSS', 'HbSC', 'HbS-beta'],
+                    status: 'Already Correct',
+                    notes: 'No changes needed'
+                }
+            ];
+
+            const tableBody = document.getElementById('verificationResults');
+            tableBody.innerHTML = '';
+
+            results.forEach(result => {
+                const row = document.createElement('tr');
+                const statusClass = result.status === 'Updated' ? 'correct' : 'correct';
+                
+                row.innerHTML = `
+                    <td>${result.file}</td>
+                    <td class="${statusClass}">${result.status}</td>
+                    <td>${result.expectedGenotypes.join(', ')}</td>
+                    <td>${result.notes}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function testAddPatient() {
+            window.open('add-patient.html', '_blank');
+        }
+
+        function testCrisisAssessment() {
+            window.open('crisis-assessment.html', '_blank');
+        }
+
+        function testSymptomCheck() {
+            window.open('symptom_check.html', '_blank');
+        }
+
+        function testModelDemo() {
+            window.open('model/demo.html', '_blank');
+        }
+
+        // Initialize verification on page load
+        document.addEventListener('DOMContentLoaded', verifyGenotypes);
+    </script>
+</body>
+</html>

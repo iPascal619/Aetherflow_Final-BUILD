@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFlow - Healthcare Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="healthcare-mode">
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <ul class="healthcare-nav-links">
+                    <li><a href="healthcare-dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="patients.html">Patients</a></li>
+                    <li><a href="assessments.html">Assessments</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+                <div class="provider-info">
+                    <div class="provider-details">
+                        <span class="provider-name">Dr. Sarah Johnson</span>
+                        <span class="provider-role">Licensed Clinical Psychologist</span>
+                    </div>
+                    <button class="logout-btn">Logout</button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="healthcare-dashboard">
+                <!-- Dashboard Header -->
+                <div class="dashboard-header">
+                    <h1 data-translate="healthcare.dashboard.title">Healthcare Dashboard</h1>
+                    <p data-translate="healthcare.dashboard.subtitle">Monitor your sickle cell patients and manage assessments</p>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <h3 id="totalPatients">0</h3>
+                            <p data-translate="healthcare.stats.total_patients">Total Patients</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card high-risk">
+                        <div class="stat-icon">🚨</div>
+                        <div class="stat-content">
+                            <h3 id="highRiskPatients">0</h3>
+                            <p data-translate="healthcare.stats.high_risk">High Risk Patients</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <h3 id="todayAssessments">0</h3>
+                            <p data-translate="healthcare.stats.today_assessments">Today's Assessments</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-content">
+                            <h3 id="pendingFollowups">0</h3>
+                            <p data-translate="healthcare.stats.pending_followups">Pending Follow-ups</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- High Priority Patients -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 data-translate="healthcare.priority.title">High Priority Patients</h2>
+                        <button class="btn btn-outline" onclick="viewAllPatients()">
+                            <span data-translate="healthcare.priority.view_all">View All</span>
+                        </button>
+                    </div>
+                    <div class="priority-patients" id="priorityPatients">
+                        <div class="no-data">
+                            <p data-translate="healthcare.priority.no_patients">No high priority patients at this time</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Assessments -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 data-translate="healthcare.recent.title">Recent Assessments</h2>
+                        <button class="btn btn-outline" onclick="viewAllAssessments()">
+                            <span data-translate="healthcare.recent.view_all">View All</span>
+                        </button>
+                    </div>
+                    <div class="recent-assessments" id="recentAssessments">
+                        <div class="no-data">
+                            <p data-translate="healthcare.recent.no_assessments">No recent assessments</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 data-translate="healthcare.actions.title">Quick Actions</h2>
+                    </div>
+                    <div class="quick-actions-grid">
+                        <div class="action-card" onclick="addNewPatient()">
+                            <div class="action-icon">👤</div>
+                            <h3 data-translate="healthcare.actions.add_patient">Add New Patient</h3>
+                            <p data-translate="healthcare.actions.add_patient_desc">Register a new patient for monitoring</p>
+                        </div>
+                        
+                        <div class="action-card" onclick="startAssessment()">
+                            <div class="action-icon">🩺</div>
+                            <h3 data-translate="healthcare.actions.start_assessment">Start Assessment</h3>
+                            <p data-translate="healthcare.actions.start_assessment_desc">Begin crisis risk assessment for a patient</p>
+                        </div>
+                        
+                        <div class="action-card" onclick="generateReport()">
+                            <div class="action-icon">📋</div>
+                            <h3 data-translate="healthcare.actions.generate_report">Generate Report</h3>
+                            <p data-translate="healthcare.actions.generate_report_desc">Create patient or facility reports</p>
+                        </div>
+                        
+                        <div class="action-card" onclick="viewAnalytics()">
+                            <div class="action-icon">📈</div>
+                            <h3 data-translate="healthcare.actions.view_analytics">View Analytics</h3>
+                            <p data-translate="healthcare.actions.view_analytics_desc">Analyze trends and patterns</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Schedule -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 data-translate="healthcare.schedule.title">Today's Schedule</h2>
+                        <span class="current-date" id="currentDate"></span>
+                    </div>
+                    <div class="schedule-overview" id="scheduleOverview">
+                        <div class="schedule-item">
+                            <div class="schedule-time">09:00</div>
+                            <div class="schedule-content">
+                                <h4 data-translate="healthcare.schedule.sample1">Patient Assessment - John Doe</h4>
+                                <p data-translate="healthcare.schedule.sample1_desc">Routine follow-up assessment</p>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-time">14:30</div>
+                            <div class="schedule-content">
+                                <h4 data-translate="healthcare.schedule.sample2">Review Reports</h4>
+                                <p data-translate="healthcare.schedule.sample2_desc">Weekly patient status review</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p data-translate="footer.copyright">&copy; 2025 AetherFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/storage-adapter.js"></script>
+    <script src="js/healthcare-dashboard.js"></script>
+</body>
+</html>

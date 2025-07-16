@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFlow - Add Patient</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="healthcare-mode">
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <ul class="healthcare-nav-links">
+                    <li><a href="healthcare-dashboard.html">Dashboard</a></li>
+                    <li><a href="patients.html" class="active">Patients</a></li>
+                    <li><a href="assessments.html">Assessments</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+                <div class="provider-info">
+                    <div class="provider-details">
+                        <span class="provider-name">Dr. Sarah Johnson</span>
+                        <span class="provider-role">Licensed Clinical Psychologist</span>
+                    </div>
+                    <button class="logout-btn">Logout</button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="add-patient-container">
+                <div class="page-header">
+                    <h1>Add New Patient</h1>
+                    <p>Enter patient information to start monitoring their sickle cell condition</p>
+                </div>
+
+                <form id="addPatientForm" class="patient-form">
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <h3>Basic Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patientName">Full Name *</label>
+                                <input type="text" id="patientName" name="patientName" required class="input">
+                            </div>
+                            <div class="form-group">
+                                <label for="patientId">Patient ID</label>
+                                <input type="text" id="patientId" name="patientId" class="input" placeholder="Auto-generated if left empty">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date of Birth *</label>
+                                <input type="date" id="dateOfBirth" name="dateOfBirth" required class="input">
+                            </div>
+                            <div class="form-group">
+                                <label for="sex">Sex *</label>
+                                <select id="sex" name="sex" required class="select">
+                                    <option value="">Select...</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="genotype">Sickle Cell Genotype *</label>
+                                <select id="genotype" name="genotype" required class="select">
+                                    <option value="">Select genotype...</option>
+                                    <option value="HbSS">HbSS (Sickle Cell Anemia)</option>
+                                    <option value="HbSC">HbSC (Sickle-Hemoglobin C Disease)</option>
+                                    <option value="HbS-beta">HbS-beta (Sickle Beta Thalassemia)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="diagnosisDate">Diagnosis Date</label>
+                                <input type="date" id="diagnosisDate" name="diagnosisDate" class="input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="form-section">
+                        <h3>Contact Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="input">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" class="input">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" class="textarea" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Contact -->
+                    <div class="form-section">
+                        <h3>Emergency Contact</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emergencyName">Contact Name</label>
+                                <input type="text" id="emergencyName" name="emergencyName" class="input">
+                            </div>
+                            <div class="form-group">
+                                <label for="emergencyRelation">Relationship</label>
+                                <select id="emergencyRelation" name="emergencyRelation" class="select">
+                                    <option value="">Select...</option>
+                                    <option value="Parent">Parent</option>
+                                    <option value="Spouse">Spouse</option>
+                                    <option value="Sibling">Sibling</option>
+                                    <option value="Child">Child</option>
+                                    <option value="Other Family">Other Family</option>
+                                    <option value="Friend">Friend</option>
+                                    <option value="Guardian">Guardian</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emergencyPhone">Emergency Phone</label>
+                                <input type="tel" id="emergencyPhone" name="emergencyPhone" class="input">
+                            </div>
+                            <div class="form-group">
+                                <label for="emergencyEmail">Emergency Email</label>
+                                <input type="email" id="emergencyEmail" name="emergencyEmail" class="input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medical History -->
+                    <div class="form-section">
+                        <h3>Medical History</h3>
+                        <div class="form-group">
+                            <label>Previous Crisis History</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="crisisHistory" name="crisisHistory" value="yes">
+                                    <label for="crisisHistory">Has history of sickle cell crises</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="lastCrisis">Last Crisis Date</label>
+                                <input type="date" id="lastCrisis" name="lastCrisis" class="input">
+                            </div>
+                            <div class="form-group">
+                                <label for="crisisFrequency">Crisis Frequency (per year)</label>
+                                <input type="number" id="crisisFrequency" name="crisisFrequency" min="0" class="input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Known Complications</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="acuteChest" name="complications" value="acute_chest">
+                                    <label for="acuteChest">Acute Chest Syndrome</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="stroke" name="complications" value="stroke">
+                                    <label for="stroke">Stroke</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="priapism" name="complications" value="priapism">
+                                    <label for="priapism">Priapism</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="organDamage" name="complications" value="organ_damage">
+                                    <label for="organDamage">Organ Damage</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="currentMedications">Current Medications</label>
+                            <textarea id="currentMedications" name="currentMedications" class="textarea" rows="3" 
+                                      placeholder="List current medications including hydroxyurea, pain medications, etc."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="allergies">Allergies</label>
+                            <textarea id="allergies" name="allergies" class="textarea" rows="2" 
+                                      placeholder="List any known allergies or adverse reactions"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="form-section">
+                        <h3>Additional Notes</h3>
+                        <div class="form-group">
+                            <label for="notes">Clinical Notes</label>
+                            <textarea id="notes" name="notes" class="textarea" rows="4" 
+                                      placeholder="Any additional clinical information or notes about the patient"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Patient</button>
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+                        <button type="button" class="btn btn-outline" onclick="cancelAddPatient()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 AetherFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/add-patient.js"></script>
+</body>
+</html>

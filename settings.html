@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFlow - Settings</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <!-- Single User Navigation (default) -->
+                <ul class="nav-menu" id="singleUserNav">
+                    <li><a href="index.html" class="nav-link">
+                        <img src="images/icon-home.svg" alt="Home"> <span data-translate="nav.home">Home</span>
+                    </a></li>
+                    <li><a href="dashboard.html" class="nav-link">
+                        <img src="images/icon-dashboard.svg" alt="Dashboard"> <span data-translate="nav.dashboard">Dashboard</span>
+                    </a></li>
+                    <li><a href="symptom_check.html" class="nav-link">
+                        <img src="images/icon-predict.svg" alt="Predict"> <span data-translate="nav.symptom_check">Symptom Check</span>
+                    </a></li>
+                    <li><a href="settings.html" class="nav-link active">
+                        <img src="images/icon-settings.svg" alt="Settings"> <span data-translate="nav.settings">Settings</span>
+                    </a></li>
+                </ul>
+                <!-- Healthcare Navigation (hidden by default) -->
+                <ul class="healthcare-nav-links" id="healthcareUserNav" style="display: none;">
+                    <li><a href="healthcare-dashboard.html">Dashboard</a></li>
+                    <li><a href="patients.html">Patients</a></li>
+                    <li><a href="assessments.html">Assessments</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="settings.html" class="active">Settings</a></li>
+                </ul>
+                <!-- Provider Info (hidden by default, shown in healthcare mode) -->
+                <div class="provider-info" id="providerInfoSection" style="display: none;">
+                    <div class="provider-details">
+                        <span class="provider-name" id="headerProviderName">Dr. Sarah Johnson</span>
+                        <span class="provider-role" id="headerProviderRole">Licensed Clinical Psychologist</span>
+                    </div>
+                    <button class="logout-btn">Logout</button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="settings-container">
+                <div class="settings-header">
+                    <h1 data-translate="settings.title">Settings</h1>
+                    <p data-translate="settings.subtitle">Customize your AetherFlow experience</p>
+                </div>
+
+                <div class="settings-content">
+                    <!-- Mode Selection -->
+                    <div class="settings-section">
+                        <h2>Application Mode</h2>
+                        <div class="mode-selector">
+                            <label class="mode-option">
+                                <input type="radio" name="appMode" value="single" id="singleMode" checked>
+                                <span class="mode-label">
+                                    <span class="mode-icon">👤</span>
+                                    <span class="mode-text">
+                                        <strong>Single User Mode</strong>
+                                        <small>Personal health monitoring</small>
+                                    </span>
+                                </span>
+                            </label>
+                            <label class="mode-option">
+                                <input type="radio" name="appMode" value="healthcare" id="healthcareMode">
+                                <span class="mode-label">
+                                    <span class="mode-icon">🏥</span>
+                                    <span class="mode-text">
+                                        <strong>Healthcare Worker Mode</strong>
+                                        <small>Patient management system</small>
+                                    </span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Single User Mode Settings -->
+                    <div id="singleUserSettings" class="mode-settings">
+                        <div class="settings-section">
+                            <h2 data-translate="settings.profile_info">Profile Information</h2>
+                            <form class="settings-form" id="profileForm">
+                                <div class="form-group">
+                                    <label for="fullName" data-translate="settings.full_name">Full Name</label>
+                                    <input type="text" id="fullName" name="fullName" data-translate-placeholder="settings.full_name_placeholder" placeholder="Enter your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" data-translate="settings.email">Email Address</label>
+                                    <input type="email" id="email" name="email" data-translate-placeholder="settings.email_placeholder" placeholder="Enter your email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthDate" data-translate="settings.birth_date">Date of Birth</label>
+                                    <input type="date" id="birthDate" name="birthDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileGender" data-translate="settings.gender">Gender</label>
+                                    <select id="profileGender" name="profileGender">
+                                        <option value="" data-translate="settings.select_gender">Select Gender</option>
+                                        <option value="male" data-translate="settings.male">Male</option>
+                                        <option value="female" data-translate="settings.female">Female</option>
+                                        <option value="other" data-translate="settings.other">Other</option>
+                                        <option value="prefer-not-to-say" data-translate="settings.prefer_not_say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2 data-translate="settings.health_info">Health Information</h2>
+                            <form class="settings-form" id="healthForm">
+                                <div class="form-group">
+                                    <label for="height" data-translate="settings.height">Height (cm)</label>
+                                    <input type="number" id="height" name="height" data-translate-placeholder="settings.height_placeholder" placeholder="Enter height in cm">
+                                </div>
+                                <div class="form-group">
+                                    <label for="weight" data-translate="settings.weight">Weight (kg)</label>
+                                    <input type="number" id="weight" name="weight" data-translate-placeholder="settings.weight_placeholder" placeholder="Enter weight in kg">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bloodType" data-translate="settings.blood_type">Blood Type</label>
+                                    <select id="bloodType" name="bloodType">
+                                        <option value="" data-translate="settings.select_blood_type">Select Blood Type</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="allergies" data-translate="settings.allergies">Known Allergies</label>
+                                    <textarea id="allergies" name="allergies" rows="3" 
+                                        data-translate-placeholder="settings.allergies_placeholder" placeholder="List any known allergies..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="chronicConditions" data-translate="settings.chronic_conditions">Chronic Conditions</label>
+                                    <textarea id="chronicConditions" name="chronicConditions" rows="3" 
+                                        data-translate-placeholder="settings.chronic_conditions_placeholder" placeholder="List any chronic medical conditions..."></textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Healthcare Worker Mode Settings -->
+                    <div id="healthcareWorkerSettings" class="mode-settings" style="display: none;">
+                        <div class="settings-section">
+                            <h2>Healthcare Provider Information</h2>
+                            <form class="settings-form" id="providerForm">
+                                <div class="form-group">
+                                    <label for="providerName">Provider Name</label>
+                                    <input type="text" id="providerName" name="providerName" placeholder="Dr. Sarah Johnson">
+                                </div>
+                                <div class="form-group">
+                                    <label for="medicalLicense">Medical License Number</label>
+                                    <input type="text" id="medicalLicense" name="medicalLicense" placeholder="Enter license number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="specialty">Medical Specialty</label>
+                                    <select id="specialty" name="specialty">
+                                        <option value="">Select Specialty</option>
+                                        <option value="hematology">Hematology</option>
+                                        <option value="internal-medicine">Internal Medicine</option>
+                                        <option value="pediatrics">Pediatrics</option>
+                                        <option value="family-medicine">Family Medicine</option>
+                                        <option value="emergency-medicine">Emergency Medicine</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="providerEmail">Professional Email</label>
+                                    <input type="email" id="providerEmail" name="providerEmail" placeholder="doctor@hospital.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hospitalAffiliation">Hospital/Clinic Affiliation</label>
+                                    <input type="text" id="hospitalAffiliation" name="hospitalAffiliation" placeholder="General Hospital">
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2>Patient Management Settings</h2>
+                            <form class="settings-form" id="patientManagementForm">
+                                <div class="form-group">
+                                    <label for="maxPatients">Maximum Patients</label>
+                                    <input type="number" id="maxPatients" name="maxPatients" min="1" max="1000" value="100" placeholder="100">
+                                    <small>Maximum number of patients in your registry</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="assessmentRetention">Assessment Data Retention (days)</label>
+                                    <input type="number" id="assessmentRetention" name="assessmentRetention" min="30" max="3650" value="365" placeholder="365">
+                                    <small>How long to keep assessment data</small>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="autoBackup" name="autoBackup" checked>
+                                        <span class="checkmark"></span>
+                                        <span>Enable automatic data backup</span>
+                                    </label>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="patientNotifications" name="patientNotifications" checked>
+                                        <span class="checkmark"></span>
+                                        <span>Send notifications for high-risk patients</span>
+                                    </label>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="generateReports" name="generateReports" checked>
+                                        <span class="checkmark"></span>
+                                        <span>Auto-generate monthly reports</span>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2>AI Model Settings</h2>
+                            <form class="settings-form" id="aiModelForm">
+                                <div class="form-group">
+                                    <label for="modelVersion">AI Model Version</label>
+                                    <select id="modelVersion" name="modelVersion">
+                                        <option value="v1.0">Version 1.0 (Current)</option>
+                                        <option value="v1.1">Version 1.1 (Beta)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confidenceThreshold">Confidence Threshold</label>
+                                    <input type="range" id="confidenceThreshold" name="confidenceThreshold" min="0.5" max="0.95" value="0.8" step="0.05">
+                                    <div class="range-labels">
+                                        <span>50%</span>
+                                        <span id="confidenceValue">80%</span>
+                                        <span>95%</span>
+                                    </div>
+                                    <small>Minimum confidence required for AI predictions</small>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="enableLogging" name="enableLogging" checked>
+                                        <span class="checkmark"></span>
+                                        <span>Enable prediction logging for research</span>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Healthcare-Specific Additional Settings -->
+                        <div class="settings-section">
+                            <h2>Clinical Workflow Settings</h2>
+                            <form class="settings-form" id="clinicalWorkflowForm">
+                                <div class="form-group">
+                                    <label for="assessmentFrequency">Default Assessment Frequency</label>
+                                    <select id="assessmentFrequency" name="assessmentFrequency">
+                                        <option value="weekly">Weekly</option>
+                                        <option value="bi-weekly">Bi-weekly</option>
+                                        <option value="monthly" selected>Monthly</option>
+                                        <option value="quarterly">Quarterly</option>
+                                    </select>
+                                    <small>Default frequency for routine patient assessments</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="crisisThreshold">Crisis Alert Threshold</label>
+                                    <select id="crisisThreshold" name="crisisThreshold">
+                                        <option value="low">Low (>30% crisis probability)</option>
+                                        <option value="medium" selected>Medium (>50% crisis probability)</option>
+                                        <option value="high">High (>70% crisis probability)</option>
+                                    </select>
+                                    <small>Threshold for triggering crisis alerts</small>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="emailAlerts" name="emailAlerts" checked>
+                                        <span class="checkmark"></span>
+                                        <span>Send email alerts for high-risk patients</span>
+                                    </label>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="smsAlerts" name="smsAlerts">
+                                        <span class="checkmark"></span>
+                                        <span>Send SMS alerts for critical cases</span>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2>Data Privacy & Compliance</h2>
+                            <form class="settings-form" id="complianceForm">
+                                <div class="form-group">
+                                    <label for="dataEncryption">Data Encryption Level</label>
+                                    <select id="dataEncryption" name="dataEncryption">
+                                        <option value="standard">Standard (AES-128)</option>
+                                        <option value="enhanced" selected>Enhanced (AES-256)</option>
+                                    </select>
+                                    <small>Level of encryption for patient data</small>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="auditTrail" name="auditTrail" checked>
+                                        <span class="checkmark"></span>
+                                        <span>Enable audit trail for all patient data access</span>
+                                    </label>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="hipaaCompliance" name="hipaaCompliance" checked>
+                                        <span class="checkmark"></span>
+                                        <span>HIPAA compliance mode (recommended)</span>
+                                    </label>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="dataAnonymization" name="dataAnonymization" checked>
+                                        <span class="checkmark"></span>
+                                        <span>Anonymize data for research purposes</span>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Common Settings for Both Modes - Hidden in Healthcare Mode -->
+                    <div class="settings-section single-mode-only">
+                        <h2 data-translate="settings.preferences">Preferences</h2>
+                        <form class="settings-form" id="preferencesForm">
+                            <div class="form-group">
+                                <label for="language" data-translate="settings.language">Language</label>
+                                <select id="language" name="language">
+                                    <option value="en" data-translate="settings.english">English</option>
+                                    <option value="sw" data-translate="settings.swahili">Swahili</option>
+                                    <option value="fr" data-translate="settings.french">French</option>
+                                    <option value="rw" data-translate="settings.kinyarwanda">Kinyarwanda</option>
+                                    <option value="pcm" data-translate="settings.pidgin">Pidgin English</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timezone" data-translate="settings.timezone">Timezone</label>
+                                <select id="timezone" name="timezone">
+                                    <option value="UTC">UTC</option>
+                                    <option value="EST" data-translate="settings.est">Eastern Standard Time</option>
+                                    <option value="PST" data-translate="settings.pst">Pacific Standard Time</option>
+                                    <option value="GMT" data-translate="settings.gmt">Greenwich Mean Time</option>
+                                </select>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="notifications" name="notifications" checked>
+                                    <span class="checkmark"></span>
+                                    <span data-translate="settings.enable_notifications">Enable notifications</span>
+                                </label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="dataSharing" name="dataSharing">
+                                    <span class="checkmark"></span>
+                                    <span data-translate="settings.share_data">Share anonymous data for research</span>
+                                </label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="darkMode" name="darkMode">
+                                    <span class="checkmark"></span>
+                                    <span data-translate="settings.dark_mode">Enable dark mode</span>
+                                </label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="useOnlineAI" name="useOnlineAI" checked>
+                                    <span class="checkmark"></span>
+                                    <span data-translate="settings.online_ai">Use enhanced online AI (when available)</span>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="settings-section">
+                        <h2 data-translate="settings.privacy_security">Privacy & Security</h2>
+                        <div class="privacy-options">
+                            <div class="privacy-item">
+                                <h4 data-translate="settings.data_export">Data Export</h4>
+                                <p data-translate="settings.data_export_desc">Download all your data in a portable format</p>
+                                <button class="btn btn-outline" onclick="exportUserData()" data-translate="settings.export_data_btn">Export Data</button>
+                            </div>
+                            <div class="privacy-item">
+                                <h4 data-translate="settings.delete_account">Delete Account</h4>
+                                <p data-translate="settings.delete_account_desc">Permanently delete your account and all associated data</p>
+                                <button class="btn btn-danger" onclick="confirmDeleteAccount()" data-translate="settings.delete_account_btn">Delete Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-actions">
+                    <button type="submit" class="btn btn-primary" onclick="saveAllSettings()" data-translate="settings.save_changes">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetSettings()" data-translate="settings.reset_defaults">Reset to Defaults</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 24/7 Health Companion Chat - Hidden in Healthcare Mode -->
+        <div class="health-companion single-mode-only" id="healthCompanion">
+            <div class="companion-toggle" id="companionToggle">
+                <div class="companion-avatar">
+                    <span class="companion-icon">🩺</span>
+                    <div class="pulse-ring"></div>
+                </div>
+                <div class="companion-status">
+                    <span data-translate="companion.online">Online</span>
+                </div>
+            </div>
+            
+            <div class="companion-chat hidden" id="companionChat">
+                <div class="chat-header">
+                    <div class="chat-avatar">
+                        <span>🩺</span>
+                    </div>
+                    <div class="chat-info">
+                        <h4 data-translate="companion.name">AetherFlow Assistant</h4>
+                        <span class="status-indicator" data-translate="companion.status">Always here to help</span>
+                    </div>
+                    <button class="chat-close" id="chatClose">×</button>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant-message">
+                        <div class="message-avatar">🩺</div>
+                        <div class="message-content">
+                            <p data-translate="companion.welcome">Hi! I'm your 24/7 health companion. How can I help you today?</p>
+                            <div class="quick-actions">
+                                <button class="quick-action" data-action="symptoms" data-translate="companion.action.symptoms">Report Symptoms</button>
+                                <button class="quick-action" data-action="emergency" data-translate="companion.action.emergency">Emergency Help</button>
+                                <button class="quick-action" data-action="advice" data-translate="companion.action.advice">Health Advice</button>
+                            </div>
+                            <span class="message-time"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="typing-indicator hidden" id="typingIndicator">
+                    <div class="typing-avatar">🩺</div>
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <input type="text" class="chat-input" id="chatInput" 
+                               data-translate-placeholder="companion.input.placeholder" 
+                               placeholder="Type your health question...">
+                        <button class="voice-input" id="voiceInput" title="Voice input">🎤</button>
+                        <button class="send-message" id="sendMessage">📤</button>
+                    </div>
+                    <div class="chat-suggestions" id="chatSuggestions">
+                        <button class="suggestion" data-translate="companion.suggestion.pain">I have pain</button>
+                        <button class="suggestion" data-translate="companion.suggestion.fever">I have fever</button>
+                        <button class="suggestion" data-translate="companion.suggestion.tired">I feel tired</button>
+                        <button class="suggestion" data-translate="companion.suggestion.emergency">Emergency</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p data-translate="footer.copyright">&copy; 2025 AetherFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

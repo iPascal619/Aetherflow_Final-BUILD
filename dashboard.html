@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFlow - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">
+                        <img src="images/icon-home.svg" alt="Home"> <span data-translate="nav.home">Home</span>
+                    </a></li>
+                    <li><a href="dashboard.html" class="nav-link active">
+                        <img src="images/icon-dashboard.svg" alt="Dashboard"> <span data-translate="nav.dashboard">Dashboard</span>
+                    </a></li>
+                    <li><a href="symptom_check.html" class="nav-link">
+                        <img src="images/icon-predict.svg" alt="Predict"> <span data-translate="nav.symptom_check">Crisis Assessment</span>
+                    </a></li>
+                    <li><a href="settings.html" class="nav-link">
+                        <img src="images/icon-settings.svg" alt="Settings"> <span data-translate="nav.settings">Settings</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="dashboard">
+                <div class="dashboard-header">
+                    <h1 data-translate="dashboard.title">Health Dashboard</h1>
+                    <p data-translate="dashboard.welcome">Welcome back! Here's your health overview.</p>
+                </div>
+
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <h3 data-translate="dashboard.total_analyses">Total Analyses</h3>
+                            <p class="stat-number" id="totalAnalyses">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <h3 data-translate="dashboard.this_month">This Month</h3>
+                            <p class="stat-number" id="monthlyAnalyses">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <h3 data-translate="dashboard.health_score">Health Score</h3>
+                            <p class="stat-number" id="healthScore">85%</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-content">
+                            <h3 data-translate="dashboard.status">Status</h3>
+                            <p class="stat-status" id="healthStatus">Good</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h2 data-translate="dashboard.recent_analyses">Recent Analyses</h2>
+                        <div class="analysis-list" id="recentAnalyses">
+                            <div class="analysis-item">
+                                <div class="analysis-date" data-translate="dashboard.no_analyses">No analyses yet</div>
+                                <div class="analysis-content">
+                                    <h4 data-translate="dashboard.start_first">Start your first symptom check</h4>
+                                    <p data-translate="dashboard.ai_insights">Get AI-powered health insights</p>
+                                </div>
+                                <div class="analysis-status pending" data-translate="dashboard.pending">Pending</div>
+                            </div>
+                        </div>
+                        <a href="symptom_check.html" class="btn btn-primary" data-translate="dashboard.new_analysis">New Analysis</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h2 data-translate="dashboard.health_trends">Health Trends</h2>
+                        <div class="chart-container">
+                            <div class="chart-placeholder">
+                                <p data-translate="dashboard.trends_placeholder">📈 Health trends will appear here after you complete a few analyses</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h2 data-translate="dashboard.quick_actions">Quick Actions</h2>
+                        <div class="quick-actions">
+                            <a href="symptom_check.html" class="action-btn">
+                                <img src="images/icon-predict.svg" alt="Symptom Check">
+                                <span data-translate="nav.symptom_check">Symptom Check</span>
+                            </a>
+                            <a href="settings.html" class="action-btn">
+                                <img src="images/icon-settings.svg" alt="Settings">
+                                <span data-translate="nav.settings">Settings</span>
+                            </a>
+                            <a href="#" class="action-btn" onclick="exportData()">
+                                <span>📄</span>
+                                <span data-translate="dashboard.export_data">Export Data</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h2 data-translate="dashboard.health_insights">Health Insights</h2>
+                        <div class="insights-list" id="healthInsights">
+                            <div class="insight-item">
+                                <div class="insight-icon">💡</div>
+                                <div class="insight-content">
+                                    <h4 data-translate="dashboard.welcome_insight">Welcome to AetherFlow!</h4>
+                                    <p data-translate="dashboard.welcome_insight_desc">Complete your first symptom analysis to get personalized health insights.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p data-translate="footer.copyright">&copy; 2025 AetherFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

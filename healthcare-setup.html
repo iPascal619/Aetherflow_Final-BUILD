@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="page.healthcare_setup.title">AetherFlow - Healthcare Setup</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn btn-outline" onclick="changeMode()">
+                        <span data-translate="nav.change_mode">Change Mode</span>
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="setup-container">
+                <div class="setup-header">
+                    <h1 data-translate="setup.title">Healthcare Provider Setup</h1>
+                    <p data-translate="setup.subtitle">Set up your profile and start managing your sickle cell patients</p>
+                </div>
+
+                <div class="setup-content">
+                    <!-- Provider Information -->
+                    <div class="setup-card">
+                        <h2 data-translate="setup.provider_info">Provider Information</h2>
+                        <form id="providerSetupForm" class="setup-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="providerName" data-translate="setup.provider_name">Full Name</label>
+                                    <input type="text" id="providerName" name="providerName" required class="input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="providerTitle" data-translate="setup.provider_title">Professional Title</label>
+                                    <select id="providerTitle" name="providerTitle" required class="select">
+                                        <option value="">Select title...</option>
+                                        <option value="Dr.">Doctor (Dr.)</option>
+                                        <option value="Nurse">Registered Nurse</option>
+                                        <option value="PA">Physician Assistant</option>
+                                        <option value="NP">Nurse Practitioner</option>
+                                        <option value="Other">Other Healthcare Professional</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="facility" data-translate="setup.facility">Healthcare Facility</label>
+                                    <input type="text" id="facility" name="facility" class="input" placeholder="Hospital, Clinic, or Practice Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="department" data-translate="setup.department">Department/Specialty</label>
+                                    <select id="department" name="department" class="select">
+                                        <option value="">Select department...</option>
+                                        <option value="Hematology">Hematology</option>
+                                        <option value="Emergency">Emergency Medicine</option>
+                                        <option value="Pediatrics">Pediatrics</option>
+                                        <option value="Internal Medicine">Internal Medicine</option>
+                                        <option value="Family Medicine">Family Medicine</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="license" data-translate="setup.license">License Number (Optional)</label>
+                                <input type="text" id="license" name="license" class="input" placeholder="Professional license number">
+                                <small>This information is stored locally and not transmitted</small>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Quick Start Options -->
+                    <div class="setup-card">
+                        <h2 data-translate="setup.quick_start">Quick Start Options</h2>
+                        <div class="quick-start-options">
+                            <div class="quick-option" onclick="addFirstPatient()">
+                                <div class="quick-icon">👤</div>
+                                <h3 data-translate="setup.add_first_patient">Add Your First Patient</h3>
+                                <p data-translate="setup.add_patient_desc">Start by adding a patient profile to begin monitoring</p>
+                            </div>
+                            
+                            <div class="quick-option" onclick="importPatients()">
+                                <div class="quick-icon">📂</div>
+                                <h3 data-translate="setup.import_patients">Import Patient Data</h3>
+                                <p data-translate="setup.import_desc">Import existing patient data from a CSV file</p>
+                            </div>
+                            
+                            <div class="quick-option" onclick="exploreDemo()">
+                                <div class="quick-icon">🎯</div>
+                                <h3 data-translate="setup.explore_demo">Explore Demo</h3>
+                                <p data-translate="setup.demo_desc">See how the system works with sample patient data</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features Overview -->
+                    <div class="setup-card">
+                        <h2 data-translate="setup.features">What You Can Do</h2>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">📊</div>
+                                <h4 data-translate="setup.feature1_title">Patient Dashboard</h4>
+                                <p data-translate="setup.feature1_desc">Monitor all patients from a central dashboard with real-time risk indicators</p>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <div class="feature-icon">🩺</div>
+                                <h4 data-translate="setup.feature2_title">Crisis Assessment</h4>
+                                <p data-translate="setup.feature2_desc">Conduct comprehensive crisis risk assessments for each patient</p>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <div class="feature-icon">📈</div>
+                                <h4 data-translate="setup.feature3_title">Trend Analysis</h4>
+                                <p data-translate="setup.feature3_desc">Track health trends and patterns across multiple assessments</p>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <div class="feature-icon">📋</div>
+                                <h4 data-translate="setup.feature4_title">Professional Reports</h4>
+                                <p data-translate="setup.feature4_desc">Generate detailed reports for medical records and consultations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setup-actions">
+                    <button class="btn btn-primary" onclick="completeSetup()" data-translate="setup.complete">Complete Setup</button>
+                    <button class="btn btn-secondary" onclick="skipSetup()" data-translate="setup.skip">Skip for Now</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p data-translate="footer.copyright">&copy; 2025 AetherFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/healthcare-setup.js"></script>
+</body>
+</html>

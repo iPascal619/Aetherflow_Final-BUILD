@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFlow - Assessments</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="healthcare-mode">
+    <div class="container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <img src="images/logo.svg" alt="AetherFlow Logo" class="logo">
+                    <span class="brand-name">AetherFlow</span>
+                </div>
+                <ul class="healthcare-nav-links">
+                    <li><a href="healthcare-dashboard.html">Dashboard</a></li>
+                    <li><a href="patients.html">Patients</a></li>
+                    <li><a href="assessments.html" class="active">Assessments</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+                <div class="provider-info">
+                    <div class="provider-details">
+                        <span class="provider-name">Dr. Sarah Johnson</span>
+                        <span class="provider-role">Licensed Clinical Psychologist</span>
+                    </div>
+                    <button class="logout-btn">Logout</button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="healthcare-dashboard">
+                <!-- Page Header -->
+                <div class="dashboard-header">
+                    <h1>Crisis Risk Assessments</h1>
+                    <p>Conduct and manage sickle cell crisis risk assessments for your patients</p>
+                </div>
+
+                <!-- Assessment Actions -->
+                <div class="quick-actions-grid">
+                    <div class="quick-action-card" onclick="startNewAssessment()">
+                        <div class="quick-action-icon">🩺</div>
+                        <h3>New Assessment</h3>
+                        <p>Start a crisis risk assessment for a patient</p>
+                    </div>
+                    
+                    <div class="quick-action-card" onclick="showBulkAssessment()">
+                        <div class="quick-action-icon">📋</div>
+                        <h3>Bulk Assessment</h3>
+                        <p>Conduct assessments for multiple patients</p>
+                    </div>
+                    
+                    <div class="quick-action-card" onclick="viewAssessmentHistory()">
+                        <div class="quick-action-icon">📊</div>
+                        <h3>Assessment History</h3>
+                        <p>Review past assessment results and trends</p>
+                    </div>
+                    
+                    <div class="quick-action-card" onclick="exportAssessments()">
+                        <div class="quick-action-icon">📤</div>
+                        <h3>Export Data</h3>
+                        <p>Export assessment data for analysis</p>
+                    </div>
+                </div>
+
+                <!-- Assessment Form (Hidden by default) -->
+                <div id="assessmentFormSection" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h2>Crisis Risk Assessment Form</h2>
+                        <button class="btn btn-outline" onclick="cancelAssessment()">Cancel</button>
+                    </div>
+                    
+                    <form id="assessmentForm" class="assessment-form">
+                        <!-- Patient Selection -->
+                        <div class="form-section">
+                            <h3>Patient Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="selectedPatient">Select Patient *</label>
+                                    <select id="selectedPatient" name="selectedPatient" required class="form-select">
+                                        <option value="">Choose a patient...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="assessmentDate">Assessment Date *</label>
+                                    <input type="datetime-local" id="assessmentDate" name="assessmentDate" required class="form-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Symptoms Assessment -->
+                        <div class="form-section">
+                            <h3>Current Symptoms</h3>
+                            
+                            <div class="form-group">
+                                <label for="painLevel">Pain Level (0-10) *</label>
+                                <div class="pain-scale">
+                                    <input type="range" id="painLevel" name="painLevel" min="0" max="10" value="0" 
+                                           class="pain-slider" oninput="updatePainValue(this.value)">
+                                    <div class="pain-labels">
+                                        <span>0 - No Pain</span>
+                                        <span id="painValue">0</span>
+                                        <span>10 - Worst Pain</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="symptoms-grid">
+                                <div class="symptom-group">
+                                    <label>Pain Locations</label>
+                                    <div class="checkbox-group">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="jointPain" name="symptoms" value="joint_pain">
+                                            <label for="jointPain">Joint Pain</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="bonePain" name="symptoms" value="bone_pain">
+                                            <label for="bonePain">Bone Pain</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="chestPain" name="symptoms" value="chest_pain">
+                                            <label for="chestPain">Chest Pain</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="abdominalPain" name="symptoms" value="abdominal_pain">
+                                            <label for="abdominalPain">Abdominal Pain</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="symptom-group">
+                                    <label>Associated Symptoms</label>
+                                    <div class="checkbox-group">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="fever" name="symptoms" value="fever">
+                                            <label for="fever">Fever</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="fatigue" name="symptoms" value="fatigue">
+                                            <label for="fatigue">Fatigue</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="shortnessBreath" name="symptoms" value="shortness_breath">
+                                            <label for="shortnessBreath">Shortness of Breath</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="dizziness" name="symptoms" value="dizziness">
+                                            <label for="dizziness">Dizziness</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Clinical Measurements -->
+                        <div class="form-section">
+                            <h3>Clinical Measurements</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="temperature">Temperature (°F)</label>
+                                    <input type="number" id="temperature" name="temperature" step="0.1" min="95" max="110" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bloodPressure">Blood Pressure (systolic/diastolic)</label>
+                                    <input type="text" id="bloodPressure" name="bloodPressure" placeholder="120/80" class="form-input">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="heartRate">Heart Rate (bpm)</label>
+                                    <input type="number" id="heartRate" name="heartRate" min="40" max="200" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="oxygenSaturation">Oxygen Saturation (%)</label>
+                                    <input type="number" id="oxygenSaturation" name="oxygenSaturation" min="70" max="100" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hydration and Lifestyle -->
+                        <div class="form-section">
+                            <h3>Hydration & Lifestyle Factors</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="hydrationLevel">Hydration Level</label>
+                                    <select id="hydrationLevel" name="hydrationLevel" class="form-select">
+                                        <option value="">Select...</option>
+                                        <option value="well_hydrated">Well Hydrated</option>
+                                        <option value="adequate">Adequate</option>
+                                        <option value="mild_dehydration">Mild Dehydration</option>
+                                        <option value="moderate_dehydration">Moderate Dehydration</option>
+                                        <option value="severe_dehydration">Severe Dehydration</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sleepQuality">Sleep Quality (1-10)</label>
+                                    <input type="number" id="sleepQuality" name="sleepQuality" min="1" max="10" class="form-input">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="stressLevel">Stress Level (1-10)</label>
+                                    <input type="number" id="stressLevel" name="stressLevel" min="1" max="10" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="physicalActivity">Recent Physical Activity</label>
+                                    <select id="physicalActivity" name="physicalActivity" class="form-select">
+                                        <option value="">Select...</option>
+                                        <option value="none">None</option>
+                                        <option value="light">Light</option>
+                                        <option value="moderate">Moderate</option>
+                                        <option value="intense">Intense</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medication Compliance -->
+                        <div class="form-section">
+                            <h3>Medication & Treatment</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="medicationCompliance">Medication Compliance (%)</label>
+                                    <input type="number" id="medicationCompliance" name="medicationCompliance" min="0" max="100" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastPainMedication">Last Pain Medication</label>
+                                    <input type="datetime-local" id="lastPainMedication" name="lastPainMedication" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Clinical Notes -->
+                        <div class="form-section">
+                            <h3>Clinical Notes</h3>
+                            <div class="form-group">
+                                <label for="clinicalNotes">Additional Observations</label>
+                                <textarea id="clinicalNotes" name="clinicalNotes" rows="4" class="form-input" 
+                                          placeholder="Record any additional clinical observations, patient concerns, or relevant information..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Complete Assessment</button>
+                            <button type="button" class="btn btn-outline" onclick="saveAsDraft()">Save as Draft</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelAssessment()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Recent Assessments -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Recent Assessments</h2>
+                        <div class="filter-controls">
+                            <select id="patientFilter" class="form-select" onchange="filterAssessments()">
+                                <option value="">All Patients</option>
+                            </select>
+                            <select id="riskFilter" class="form-select" onchange="filterAssessments()">
+                                <option value="">All Risk Levels</option>
+                                <option value="low">Low Risk</option>
+                                <option value="medium">Medium Risk</option>
+                                <option value="high">High Risk</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="assessments-list" id="assessmentsList">
+                        <!-- Assessment items will be loaded here -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="assessmentsEmptyState" class="no-data" style="display: none;">
+                        <div class="empty-icon">🩺</div>
+                        <h3>No Assessments Found</h3>
+                        <p>Start by conducting your first patient assessment.</p>
+                        <button class="btn btn-primary" onclick="startNewAssessment()">
+                            <span>Start First Assessment</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 AetherFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Assessment Results Modal -->
+    <div id="resultsModal" class="modal" style="display: none;">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>Assessment Results</h3>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="resultsContent">
+                <!-- Assessment results will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/ai-integration.js"></script>
+    <script src="js/assessments.js"></script>
+</body>
+</html>
