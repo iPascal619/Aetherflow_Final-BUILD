@@ -115,7 +115,7 @@ Git             → https://git-scm.com/
 ### **Development Installation**
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Isaiah-Essien/Negpod6-GCS-1-project.git
+git clone https://github.com/iPascal619/Aetherflow_Final-BUILD.git
 cd aetherflow-frontend
 
 # 2. Install Node.js dependencies
@@ -576,7 +576,7 @@ Local Storage ← Data Persistence ← Processing ← Results ← Predictions
 
 ## 🤝 Contributing & Development
 
-We welcome contributions from developers, healthcare professionals, and researchers! Here's how you can help improve AetherFlow:
+Hi, Pascal here, I welcome contributions from developers, healthcare professionals, and researchers! Here's how you can help improve AetherFlow:
 
 ### **How to Contribute**
 
@@ -711,10 +711,7 @@ Anonymized data can contribute to:
 ### **Getting Help**
 
 #### **Documentation**
-- **User Manual**: Comprehensive usage guide
-- **Developer Docs**: Technical documentation
-- **FAQ**: Common questions and solutions
-- **Video Tutorials**: Step-by-step guides
+- **Video Tutorials**: Step-by-step guides (https://drive.google.com/file/d/1Adb7vGtYbbEUkNc2ce9a7h14qKH0HwJ3/view?usp=sharing)
 
 #### **Community Support**
 - **GitHub Discussions**: Community Q&A
@@ -729,8 +726,8 @@ Anonymized data can contribute to:
 - **Compliance Consulting**: HIPAA/regulatory guidance
 
 ### **Bug Reports & Issues**
-- **GitHub Issues**: https://github.com/Isaiah-Essien/Negpod6-GCS-1-project/issues
-- **Email Support**: support@aetherflow.health
+- **GitHub Issues**:https://github.com/iPascal619/Aetherflow_Final-BUILD.git
+- **Email Support**: c.onuoha@alustudent.com
 - **Emergency Issues**: 24/7 support for critical bugs
 
 ### **Feature Requests**
@@ -738,26 +735,6 @@ Anonymized data can contribute to:
 - **User Voting**: Community-driven feature prioritization
 - **Clinical Advisory Board**: Healthcare provider input
 - **Regular Updates**: Monthly feature releases
-
-## 📚 Additional Resources
-
-### **Educational Materials**
-- **Sickle Cell Disease Guide**: Comprehensive disease information
-- **Crisis Prevention Tips**: Evidence-based prevention strategies
-- **Caregiver Resources**: Tools for family members
-- **Healthcare Provider Training**: Clinical best practices
-
-### **Integration Guides**
-- **EMR Integration**: Electronic medical record connectivity
-- **API Documentation**: Third-party integration options
-- **Mobile App**: Companion mobile application
-- **Wearable Devices**: Integration with health monitors
-
-### **Research Publications**
-- **Clinical Validation Study**: Peer-reviewed accuracy analysis
-- **Implementation Guide**: Healthcare deployment best practices
-- **Cost-Benefit Analysis**: Economic impact assessment
-- **Patient Outcomes Study**: Real-world effectiveness data
 
 ## 📄 Legal & Compliance
 
@@ -785,27 +762,22 @@ Anonymized data can contribute to:
 
 ### **Clinical Advisory Board**
 - Dr. Sarah Johnson, MD - Hematology/Oncology
-- Dr. Michael Rodriguez, PhD - Clinical Psychology  
-- Dr. Aisha Patel, RN - Nursing Informatics
-- Dr. James Wilson, MD - Emergency Medicine
+- Dr. Christian, PhD - Clinical Psychology  
 
-### **Technical Contributors**
-- Isaiah Essien - Lead Developer & AI Engineering
-- AetherFlow Development Team
-- Open Source Contributors
-- Beta Testing Community
+### **Technical Contributor(s)**
+- Chukwuma Pascal Onuoha - Lead Developer
 
 ### **Research Partners**
 - Sickle Cell Disease Association
-- National Heart, Lung, and Blood Institute
+- The African Leadership University
 - Academic Medical Centers
 - Patient Advocacy Groups
 
 ### **Special Thanks**
-- Sickle cell patients and families who provided feedback
+- Sickle cell patients and my family who provided feedback
 - Healthcare providers who participated in validation
-- Open source community for foundational tools
-- Research institutions for clinical guidance
+- My supervisor, Marvin Ogore, for helping me shape the tool
+  
 
 ---
 
@@ -814,6 +786,6 @@ Anonymized data can contribute to:
 **🔒 Privacy Commitment**: Your health data is private and secure. AetherFlow operates completely offline, ensuring your personal health information never leaves your device.
 
 **📱 Stay Connected**: 
-- GitHub: https://github.com/Isaiah-Essien/Negpod6-GCS-1-project
+- GitHub: https://github.com/iPascal619/Aetherflow_Final-BUILD.git
 - Website: [Coming Soon]
-- Email: support@aetherflow.health
+- Email: c.onuoha@alustudent.com
