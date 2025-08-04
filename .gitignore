@@ -36,7 +36,6 @@ env.bak/
 venv.bak/
 
 # Electron build outputs
-dist/
 out/
 release/
 
