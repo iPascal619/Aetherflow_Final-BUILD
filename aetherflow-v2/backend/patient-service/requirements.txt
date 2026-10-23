@@ -1,0 +1,5 @@
+# Patient Service Requirements
+-r ../shared/requirements.txt
+
+# Additional dependencies specific to patient service
+# (No additional dependencies needed for basic patient management)
