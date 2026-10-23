@@ -1,0 +1,135 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: aetherflow_postgres
+    environment:
+      POSTGRES_DB: aetherflow_db
+      POSTGRES_USER: aetherflow_user
+      POSTGRES_PASSWORD: aetherflow_password
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/database/init:/docker-entrypoint-initdb.d
+    networks:
+      - aetherflow-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: aetherflow_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - aetherflow-network
+
+  # MinIO Object Storage
+  minio:
+    image: minio/minio:latest
+    container_name: aetherflow_minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: aetherflow
+      MINIO_ROOT_PASSWORD: aetherflow123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - aetherflow-network
+
+  # Traefik API Gateway
+  traefik:
+    image: traefik:v3.0
+    container_name: aetherflow_gateway
+    command:
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"
+      - "8080:8080"  # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - aetherflow-network
+
+  # Authentication Service
+  auth-service:
+    build: 
+      context: ./backend/auth-service
+      dockerfile: Dockerfile
+    container_name: aetherflow_auth
+    environment:
+      DATABASE_URL: postgresql://aetherflow_user:aetherflow_password@postgres:5432/aetherflow_db
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your-super-secret-jwt-key-change-in-production
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.auth.rule=Host(`localhost`) && PathPrefix(`/api/v1/auth`)
+      - traefik.http.services.auth.loadbalancer.server.port=8000
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - aetherflow-network
+
+  # Patient Service
+  patient-service:
+    build: 
+      context: ./backend/patient-service
+      dockerfile: Dockerfile
+    container_name: aetherflow_patients
+    environment:
+      DATABASE_URL: postgresql://aetherflow_user:aetherflow_password@postgres:5432/aetherflow_db
+      AUTH_SERVICE_URL: http://auth-service:8000
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.patients.rule=Host(`localhost`) && PathPrefix(`/api/v1/patients`)
+      - traefik.http.services.patients.loadbalancer.server.port=8000
+    depends_on:
+      - postgres
+      - auth-service
+    networks:
+      - aetherflow-network
+
+  # ML Service
+  ml-service:
+    build: 
+      context: ./backend/ml-service
+      dockerfile: Dockerfile
+    container_name: aetherflow_ml
+    environment:
+      DATABASE_URL: postgresql://aetherflow_user:aetherflow_password@postgres:5432/aetherflow_db
+      AUTH_SERVICE_URL: http://auth-service:8000
+      MODEL_PATH: /app/models
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.ml.rule=Host(`localhost`) && PathPrefix(`/api/v1/ml`)
+      - traefik.http.services.ml.loadbalancer.server.port=8000
+    depends_on:
+      - postgres
+      - auth-service
+    volumes:
+      - ./backend/ml-service/models:/app/models:ro
+    networks:
+      - aetherflow-network
+
+networks:
+  aetherflow-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
