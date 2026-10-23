@@ -1,0 +1,54 @@
+# Shared Python packages for AetherFlow v2.0 microservices
+
+# FastAPI and web framework dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Database and ORM
+sqlalchemy==2.0.23
+asyncpg==0.29.0
+alembic==1.13.0
+
+# Authentication and security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# Redis and caching
+redis==5.0.1
+hiredis==2.2.3
+
+# Data validation and serialization
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# HTTP client for inter-service communication
+httpx==0.25.2
+
+# Monitoring and logging
+structlog==23.2.0
+prometheus-client==0.19.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2
+
+# Development tools
+black==23.11.0
+isort==5.12.0
+mypy==1.7.1
+
+# ML and data science (for ML service)
+numpy==1.25.2
+pandas==2.1.3
+scikit-learn==1.3.2
+joblib==1.3.2
+shap==0.43.0
+
+# Time and date handling
+python-dateutil==2.8.2
+
+# Environment management
+python-dotenv==1.0.0
