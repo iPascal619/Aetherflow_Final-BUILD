@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherFlow - Sickle Cell Crisis Prediction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .form-section {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .predict-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .predict-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-section {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .result-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .risk-level {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .risk-high { color: #dc2626; }
+        .risk-medium { color: #d97706; }
+        .risk-low { color: #059669; }
+
+        .probability {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .risk-factors {
+            margin-bottom: 20px;
+        }
+
+        .risk-factor {
+            display: flex;
+            justify-content: between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .recommendations {
+            background: #eff6ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .recommendations h4 {
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recommendations li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .recommendations li::before {
+            content: "•";
+            color: #3b82f6;
+            position: absolute;
+            left: 0;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AetherFlow</h1>
+            <p>AI-Powered Sickle Cell Crisis Prediction</p>
+        </div>
+
+        <div class="content">
+            <div class="form-section">
+                <h3>Patient Information</h3>
+                <form id="predictionForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" required min="0" max="120" value="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="sex">Sex</label>
+                            <select id="sex" name="sex" required>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="genotype">Genotype</label>
+                            <select id="genotype" name="genotype" required>
+                                <option value="HbSS">HbSS</option>
+                                <option value="HbSC">HbSC</option>
+                                <option value="HbS-beta">HbS-beta</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pain_level">Pain Level (0-10)</label>
+                            <input type="number" id="pain_level" name="pain_level" required min="0" max="10" value="5">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hbf_percent">HbF Percentage</label>
+                            <input type="number" id="hbf_percent" name="hbf_percent" required min="0" max="100" step="0.1" value="5.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="wbc_count">WBC Count (x10⁹/L)</label>
+                            <input type="number" id="wbc_count" name="wbc_count" required min="0" step="0.1" value="8.5">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ldh">LDH (U/L)</label>
+                            <input type="number" id="ldh" name="ldh" required min="0" value="250">
+                        </div>
+                        <div class="form-group">
+                            <label for="crp">CRP (mg/L)</label>
+                            <input type="number" id="crp" name="crp" required min="0" step="0.1" value="5.0">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prior_crises">Prior Crises (past year)</label>
+                            <input type="number" id="prior_crises" name="prior_crises" required min="0" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="medication_adherence">Medication Adherence (0-1)</label>
+                            <input type="number" id="medication_adherence" name="medication_adherence" required min="0" max="1" step="0.1" value="0.8">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hydration_level">Hydration Level</label>
+                            <select id="hydration_level" name="hydration_level" required>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reported_stress_level">Stress Level (0-10)</label>
+                            <input type="number" id="reported_stress_level" name="reported_stress_level" required min="0" max="10" value="5">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="predict-btn" id="predictBtn">Predict Crisis Risk</button>
+                </form>
+            </div>
+
+            <div class="results-section">
+                <h3>Prediction Results</h3>
+                
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Analyzing patient data...</p>
+                </div>
+
+                <div id="results" style="display: none;">
+                    <div class="result-card">
+                        <div class="risk-level" id="riskLevel">-</div>
+                        <div class="probability" id="probability">-</div>
+                        <p><strong>Confidence:</strong> <span id="confidence">-</span></p>
+                    </div>
+
+                    <div class="result-card">
+                        <h4>Top Risk Factors</h4>
+                        <div class="risk-factors" id="riskFactors">
+                            <!-- Risk factors will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="recommendations" id="recommendationsCard" style="display: none;">
+                        <h4>Clinical Recommendations</h4>
+                        <ul id="recommendations">
+                            <!-- Recommendations will be populated here -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="placeholder" class="result-card">
+                    <p style="text-align: center; color: #6b7280;">Enter patient information and click "Predict Crisis Risk" to see results.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000';
+        
+        document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('predictBtn').disabled = true;
+            
+            // Collect form data
+            const formData = new FormData(e.target);
+            const patientData = {
+                age: parseInt(formData.get('age')),
+                sex: formData.get('sex'),
+                genotype: formData.get('genotype'),
+                pain_level: parseInt(formData.get('pain_level')),
+                hbf_percent: parseFloat(formData.get('hbf_percent')),
+                wbc_count: parseFloat(formData.get('wbc_count')),
+                ldh: parseFloat(formData.get('ldh')),
+                crp: parseFloat(formData.get('crp')),
+                prior_crises: parseInt(formData.get('prior_crises')),
+                medication_adherence: parseFloat(formData.get('medication_adherence')),
+                hydration_level: formData.get('hydration_level'),
+                reported_stress_level: parseInt(formData.get('reported_stress_level')),
+                // Default values for other required fields
+                fatigue: 0,
+                fever: 0,
+                joint_pain: 0,
+                dactylitis: 0,
+                shortness_of_breath: 0,
+                history_of_acs: 0,
+                coexisting_asthma: 0,
+                hydroxyurea: 1,
+                pain_med: 0,
+                sleep_quality: 4,
+                temperature: 25,
+                humidity: 50
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/predict`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(patientData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                displayResults(result);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error making prediction. Please check if the API server is running.');
+            } finally {
+                // Hide loading state
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('predictBtn').disabled = false;
+            }
+        });
+        
+        function displayResults(result) {
+            // Show results section
+            document.getElementById('results').style.display = 'block';
+            
+            // Update risk level
+            const riskLevel = document.getElementById('riskLevel');
+            riskLevel.textContent = `${result.risk_level} Risk`;
+            riskLevel.className = `risk-level risk-${result.risk_level.toLowerCase()}`;
+            
+            // Update probability
+            const probability = (result.crisis_probability * 100).toFixed(1);
+            document.getElementById('probability').textContent = `${probability}%`;
+            
+            // Update confidence
+            document.getElementById('confidence').textContent = result.confidence;
+            
+            // Update risk factors
+            const riskFactorsDiv = document.getElementById('riskFactors');
+            riskFactorsDiv.innerHTML = '';
+            result.top_risk_factors.forEach(factor => {
+                const factorDiv = document.createElement('div');
+                factorDiv.className = 'risk-factor';
+                factorDiv.innerHTML = `
+                    <span>${factor.factor}</span>
+                    <span>${factor.contribution.toFixed(3)}</span>
+                `;
+                riskFactorsDiv.appendChild(factorDiv);
+            });
+            
+            // Update recommendations
+            if (result.recommendations && result.recommendations.length > 0) {
+                document.getElementById('recommendationsCard').style.display = 'block';
+                const recommendationsList = document.getElementById('recommendations');
+                recommendationsList.innerHTML = '';
+                result.recommendations.forEach(rec => {
+                    const li = document.createElement('li');
+                    li.textContent = rec;
+                    recommendationsList.appendChild(li);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
