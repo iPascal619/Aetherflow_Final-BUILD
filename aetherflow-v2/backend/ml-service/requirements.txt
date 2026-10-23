@@ -1,0 +1,5 @@
+# ML Service Requirements
+-r ../shared/requirements.txt
+
+# Additional ML dependencies
+shap==0.43.0
