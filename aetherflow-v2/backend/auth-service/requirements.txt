@@ -1,0 +1,6 @@
+# Auth Service Requirements
+-r ../shared/requirements.txt
+
+# Additional dependencies specific to auth service
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
